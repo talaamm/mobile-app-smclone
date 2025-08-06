@@ -1,161 +1,62 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  View,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import { useRouter } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Link } from 'expo-router';
+import React, { useState } from 'react';
+import { Alert, Button, StyleSheet, TextInput } from 'react-native';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
 
   const handleLogin = () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Please fill in all fields');
-      return;
-    }
-    
-    // Here you would typically make an API call
-    console.log('Login attempt:', { email, password });
-    Alert.alert('Success', 'Login successful!');
-    // router.replace('/(tabs)');
+    // Placeholder for authentication logic
+    Alert.alert('Login', `Email: ${email}\nPassword: ${password}`);
   };
 
   return (
-    <KeyboardAvoidingView
-      style={[styles.container, { backgroundColor: colors.background }]}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <ThemedView style={styles.innerContainer}>
-        <ThemedText type="title" style={styles.title}>
-          Welcome Back
-        </ThemedText>
-        
-        <ThemedText style={styles.subtitle}>
-          Sign in to your account
-        </ThemedText>
-
-        <View style={styles.form}>
-          <TextInput
-            style={[styles.input, { 
-              backgroundColor: colors.inputBackground, 
-              color: colors.text,
-              borderColor: colors.border
-            }]}
-            placeholder="Email"
-            placeholderTextColor={colors.placeholder}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-
-          <TextInput
-            style={[styles.input, { 
-              backgroundColor: colors.inputBackground, 
-              color: colors.text,
-              borderColor: colors.border
-            }]}
-            placeholder="Password"
-            placeholderTextColor={colors.placeholder}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: colors.tint }]}
-            onPress={handleLogin}
-          >
-            <Text style={[styles.buttonText, { color: colors.background }]}>
-              Sign In
-            </Text>
-          </TouchableOpacity>
-
-          <View style={styles.signupContainer}>
-            <ThemedText style={styles.signupText}>
-              Don't have an account?{' '}
-            </ThemedText>
-            <TouchableOpacity onPress={() => router.push('/signup')}>
-              <Text style={[styles.signupLink, { color: colors.tint }]}>
-                Sign Up
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ThemedView>
-    </KeyboardAvoidingView>
+    <ThemedView style={styles.container}>
+      <ThemedText type="title">Log In</ThemedText>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        autoCapitalize="none"
+        keyboardType="email-address"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+      <Button title="Log In" onPress={handleLogin} />
+      <Link href="/signup" style={styles.link}>
+        <ThemedText type="link">Don't have an account? Sign Up</ThemedText>
+      </Link>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  innerContainer: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 32,
-    textAlign: 'center',
-    opacity: 0.7,
-  },
-  form: {
-    width: '100%',
-    maxWidth: 400,
-    alignSelf: 'center',
-  },
-  input: {
-    height: 50,
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    marginBottom: 16,
-    fontSize: 16,
-  },
-  button: {
-    height: 50,
-    borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 8,
+    padding: 24,
   },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '600',
+  input: {
+    width: '100%',
+    padding: 12,
+    marginVertical: 8,
+    borderWidth: 1,
+    borderRadius: 6,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
   },
-  signupContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 20,
+  link: {
+    marginTop: 16,
+    paddingVertical: 8,
   },
-  signupText: {
-    fontSize: 14,
-  },
-  signupLink: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-});
+}); 
