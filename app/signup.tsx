@@ -1,6 +1,7 @@
 import { ThemedView } from '@/components/ThemedView';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
+import { apiRegister } from '@/hooks/useApi';
 import { useState } from 'react';
 import {
   Alert,
@@ -21,13 +22,22 @@ export default function SignupScreen() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSignup = () => {
-    setLoading(true);
-    // Placeholder for registration logic
-    setTimeout(() => {
+  const handleSignup = async () => {
+    if (!name || !email || !password) {
+      Alert.alert('Missing fields', 'Please fill in Name, Email and Password.');
+      return;
+    }
+    try {
+      setLoading(true);
+      await apiRegister({ name, email, password });
+      Alert.alert('Success', 'Registered successfully.');
+      // Optionally navigate to login after sign-up
+      // router.replace('/login');
+    } catch (error: any) {
+      Alert.alert('Sign up failed', error?.message || 'Please try again.');
+    } finally {
       setLoading(false);
-      Alert.alert('Sign Up', `Name: ${name}\nEmail: ${email}\nPassword: ${password}`);
-    }, 800);
+    }
   };
 
   return (

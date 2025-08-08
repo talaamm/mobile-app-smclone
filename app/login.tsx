@@ -1,4 +1,5 @@
 import { ThemedView } from '@/components/ThemedView';
+import { apiLogin } from '@/hooks/useApi';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -20,13 +21,21 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    setLoading(true);
-    // Placeholder for authentication logic
-    setTimeout(() => {
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Missing fields', 'Please fill in Email and Password.');
+      return;
+    }
+    try {
+      setLoading(true);
+      await apiLogin({ identifier: email, password });
+      Alert.alert('Success', 'Logged in successfully.');
+      // TODO: Navigate to your main app screen (e.g., /tabs)
+    } catch (error: any) {
+      Alert.alert('Login failed', error?.message || 'Please try again.');
+    } finally {
       setLoading(false);
-      Alert.alert('Login', `Email: ${email}\nPassword: ${password}`);
-    }, 800);
+    }
   };
 
   return (
