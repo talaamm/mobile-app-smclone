@@ -12,8 +12,8 @@ export const Colors = {
     background: '#000',
     tint: '#fff',
     tabIconDefault: '#ccc',
-    tabIconSelected: '#fff',
-    error: '#ff453a',
+    tabIconSelected: '#2f95dc',
+    error: '#ff3b30',
   },
 };
 
