@@ -1,0 +1,26 @@
+
+✔ Build finished
+
+🤖 Android app:
+https://expo.dev/artifacts/eas/9AQVtZaoENgLU64NvcAsGP.aab 
+
+
+eas build -p android --profile apk
+
+The APK link will be available at the build URL once the process completes. You can also access it through your Expo dashboard at expo.dev.
+
+Updated eas.json with proper APK build profiles (apk and apk-preview)
+
+
+Build Status URL: Track progress at the provided build URL
+Direct APK Download: Available once build completes (usually 5-15 minutes)
+Shareable Link: You can share the build URL with others
+
+# Check build progress
+eas build:list
+
+# View specific build details
+eas build:view [build-id]
+
+
+https://expo.dev/artifacts/eas/oM4iVZBX9rXaAVNmeBYgV7.apk  
