@@ -1,7 +1,7 @@
 import { ThemedView } from '@/components/ThemedView';
-import { Ionicons } from '@expo/vector-icons';
-import { Link, useRouter } from 'expo-router';
 import { apiRegister } from '@/hooks/useApi';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   Alert,
@@ -31,8 +31,7 @@ export default function SignupScreen() {
       setLoading(true);
       await apiRegister({ name, email, password });
       Alert.alert('Success', 'Registered successfully.');
-      // Optionally navigate to login after sign-up
-      // router.replace('/login');
+      router.replace('/(tabs)/newsfeed');
     } catch (error: any) {
       Alert.alert('Sign up failed', error?.message || 'Please try again.');
     } finally {

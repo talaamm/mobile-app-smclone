@@ -1,7 +1,7 @@
 import { ThemedView } from '@/components/ThemedView';
 import { apiLogin } from '@/hooks/useApi';
 import { Ionicons } from '@expo/vector-icons';
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   Alert,
@@ -30,7 +30,7 @@ export default function LoginScreen() {
       setLoading(true);
       await apiLogin({ identifier: email, password });
       Alert.alert('Success', 'Logged in successfully.');
-      // TODO: Navigate to your main app screen (e.g., /tabs)
+      router.replace('/(tabs)/newsfeed');
     } catch (error: any) {
       Alert.alert('Login failed', error?.message || 'Please try again.');
     } finally {

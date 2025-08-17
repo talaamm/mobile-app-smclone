@@ -8,12 +8,12 @@ function resolveBaseUrl(): string {
   if (envUrl && envUrl.length > 0) return envUrl;
 
   // Android emulator cannot use localhost
-  if (Platform.OS === 'android') {
-    return `http://10.0.2.2:${DEFAULT_PORT}`;
-  }
+  // if (Platform.OS === 'android') {
+  //   return `http://192.168.1.122:${DEFAULT_PORT}`;
+  // }
 
   // iOS simulator / Web
-  return `http://localhost:${DEFAULT_PORT}`;
+  return `http://192.168.1.122:${DEFAULT_PORT}`;
 }
 
 const BASE_URL = resolveBaseUrl();
@@ -47,7 +47,7 @@ async function jsonFetch<T = any>(path: string, options: RequestInit & { body?: 
 export async function apiLogin({ identifier, password }: { identifier: string; password: string }) {
   // send both username and email to backend
   return jsonFetch('/login', {
-    body: { username: identifier, email: identifier, password },
+    body: { username: identifier, password },
   });
 }
 

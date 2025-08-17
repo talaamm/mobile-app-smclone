@@ -1,0 +1,22 @@
+1. Start PostgreSQL Service
+
+sudo service postgresql start
+2. Switch to PostgreSQL User and Create Database
+
+# Switch to postgres user
+sudo -u postgres psql
+
+# Inside psql, create the database
+CREATE DATABASE socialdb;
+
+# Create a user (if needed)
+CREATE USER your_username WITH PASSWORD 'your_password';
+
+# Grant privileges
+GRANT ALL PRIVILEGES ON DATABASE socialdb TO your_username;
+
+# Exit psql
+\q
+
+
+sudo service postgresql status
